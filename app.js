@@ -1,9 +1,16 @@
 const express = require('express');
 const app = express();
-const productRoutes = require('./api/routes/products');
-const orderRoutes = require('./api/routes/orders');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+//import external files
+const productRoutes = require('./api/routes/products');
+const orderRoutes = require('./api/routes/orders');
+
+mongoose.connect('mongodb://kwere:'+ process.env.MONGO_ATLAS_PW +'@shopapi-shard-00-00-l22hn.mongodb.net:27017,shopapi-shard-00-01-l22hn.mongodb.net:27017,shopapi-shard-00-02-l22hn.mongodb.net:27017/test?ssl=true&replicaSet=shopAPI-shard-0&authSource=admin&retryWrites=true',{
+    useNewUrlParser: true
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
